@@ -270,11 +270,11 @@ class TTTAI:
         
         y, x = self.take_turn()
         if (y == 0):
-            a[x] = 2
+            a[x] = 1
         elif (y == 1):
-            b[x] = 2
+            b[x] = 1
         elif (y == 2):
-            c[x] = 2
+            c[x] = 1
         else:
             print("Something went wrong while trying to make a move...")
     
