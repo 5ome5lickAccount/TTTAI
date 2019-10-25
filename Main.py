@@ -258,8 +258,25 @@ class TTTAI:
         self.locations.append([y, x])
         self.decidePast.append(decide)
         
-        #
+        #returns coordinates
         return y, x
+    
+    #This makes the move for three arrays
+    def three_list_move(self, a, b, c):
+        for i in range(3):
+            self.myBoard[0][i] = a[i]
+            self.myBoard[1][i] = b[i]
+            self.myBoard[2][i] = c[i]
+        
+        y, x = self.take_turn()
+        if (y == 0):
+            a[x] = 2
+        elif (y == 1):
+            b[x] = 2
+        elif (y == 2):
+            c[x] = 2
+        else:
+            print("Something went wrong while trying to make a move...")
     
     #This resets everything relevant to a game
     def new_game(self):
@@ -282,11 +299,11 @@ class TTTAI:
                 return 0
             else:
                 if (win == True):
-                    self.decisions[self.decidePast[val]].learn(self.locations[val], int((val + 1) * 1))
-                    #self.decisions[self.decidePast[val]].learn(self.locations[val], 4)
+                    #self.decisions[self.decidePast[val]].learn(self.locations[val], int((val + 1) * 1))
+                    self.decisions[self.decidePast[val]].learn(self.locations[val], 5)
                 else:
-                    self.decisions[self.decidePast[val]].learn(self.locations[val], int((0 - (val + 1)) * 1))
-                    #self.decisions[self.decidePast[val]].learn(self.locations[val], -3)
+                    #self.decisions[self.decidePast[val]].learn(self.locations[val], int((0 - (val + 1)) * 1))
+                    self.decisions[self.decidePast[val]].learn(self.locations[val], -5)
 
 
 """
@@ -633,7 +650,7 @@ def arena(AI, first):
 def print_menu():
     print("1 - Play against another player")
     print("2 - Play against a random AI")
-    print("3 - Play against an opportunist(Random, but wins if it can) CURRENTLY UNAVAILIBLE")
+    print("3 - Test the three_list_move function")
     print("4 - Play against the, potentially catastrophic, learning AI")
     print("5 - Load the contents of AIStorage.py into the learning AI")
     print("6 - Write the contents of the learning AI into AIStorage.py")
@@ -654,7 +671,13 @@ def main():
             elif (val == 2):
                 rand_game()
             elif (val == 3):
-                print("Currently in development, not yet availible")
+                a = [1,1,2]
+                b = [2,0,2]
+                c = [2,1,1]
+                underling.three_list_move(a, b, c)
+                print(a)
+                print(b)
+                print(c)
             elif (val == 4):
                 ai_game(underling)
             elif (val == 5):
